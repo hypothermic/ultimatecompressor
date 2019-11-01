@@ -1,8 +1,11 @@
 #ifndef ULTIMATECOMPRESSOR_ARCHIVE_H
 #define ULTIMATECOMPRESSOR_ARCHIVE_H
 
+#include "macro.h"
+#include "method.h"
+
 #include <glib.h>
 
-guchar* uc_arc_zip(guchar* input);
+FOREACH_ARCHIVE(GENERATE_FUNC)
 
 #endif //ULTIMATECOMPRESSOR_ARCHIVE_H

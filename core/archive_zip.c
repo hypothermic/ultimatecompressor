@@ -1,3 +1,5 @@
+#include "archive.h"
+
 #include <glib.h>
 
 guchar* uc_arc_zip(guchar* input) {
