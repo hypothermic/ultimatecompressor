@@ -2,6 +2,10 @@
 
 #include <glib.h>
 
-guchar* uc_arc_tar(guchar* input) {
+void* uc_arc_tar_new(gchar* path) {
     g_print("TODO archive_tar.c");
+}
+
+gboolean uc_arc_tar_is_supported() {
+    return FALSE;
 }

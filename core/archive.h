@@ -3,9 +3,11 @@
 
 #include "macro.h"
 #include "method.h"
+#include "build.h"
 
 #include <glib.h>
 
-FOREACH_ARCHIVE(GENERATE_FUNC)
+FOREACH_ARCHIVE(GENERATE_FUNC_NEW)
+FOREACH_ARCHIVE(GENERATE_FUNC_IS_SUPPORTED)
 
 #endif //ULTIMATECOMPRESSOR_ARCHIVE_H
