@@ -8,6 +8,13 @@
 #include "mode.h"
 
 gboolean uc_mode_COMPRESS_perform(gchar** input_files, gsize input_files_len, gchar* output_destination, uc_archive_t* format) {
+    // Check if output file already exists; do not overwrite
+    if (g_access(output_destination, O_RDONLY) == 0) {
+        UC_QUIT_WITH_VERR(ERR_CAT_PERFORM_MODE, ERR_DESTINATION_EXISTS, output_destination)
+    }
+
+    ArchiveHandle archive_handle = uc_archive_get_func_new(format)(output_destination);
+
     // Loop over each input file
     for (int i = 0; input_files[i]; i++) {
         gchar* input_file = input_files[i];
@@ -15,7 +22,7 @@ gboolean uc_mode_COMPRESS_perform(gchar** input_files, gsize input_files_len, gc
 
         // If file doesn't exist or user doesn't have permission to read file
         if (g_access(input_file, O_RDONLY) != 0) {
-            UC_VPRINTERR(ERR_CAT_PERFORM_MODE, ERR_FILE_NOT_READABLE, input_file);
+            UC_VPRINTERR(ERR_CAT_PERFORM_MODE, ERR_FILE_NOT_READABLE, input_file)
             break;
         }
 
@@ -23,7 +30,7 @@ gboolean uc_mode_COMPRESS_perform(gchar** input_files, gsize input_files_len, gc
         gsize length;
         gchar* content;
         if (!g_file_get_contents(input_file, &content, &length, NULL)) {
-            UC_VPRINTERR(ERR_CAT_PERFORM_MODE, ERR_FILE_READ_FAILED, input_file);
+            UC_VPRINTERR(ERR_CAT_PERFORM_MODE, ERR_FILE_READ_FAILED, input_file)
             break;
         }
 

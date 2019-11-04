@@ -21,6 +21,7 @@
             FUNC(7,   ERR_MODE_NOT_SPECIFIED,       One [1] operating mode must be specified  ) \
             FUNC(8,   ERR_FILE_NOT_READABLE,        Input file cannot be accessed for reading ) \
             FUNC(9,   ERR_FILE_READ_FAILED,         Error while reading input file            ) \
+            FUNC(10,  ERR_DESTINATION_EXISTS,       Destination file already exists           ) \
             /* - Error categories - */ \
             FUNC(400, ERR_CAT_PARSING_ARGS,         Error while parsing arguments             ) \
             FUNC(401, ERR_CAT_PERFORM_MODE,         Error while performing mode               ) \

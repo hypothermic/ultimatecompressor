@@ -3,7 +3,17 @@
 #include <glib.h>
 
 void* uc_arc_tar_new(gchar* path) {
-    g_print("TODO archive_tar.c");
+    g_printerr(G_STRLOC "TODO");
+    return NULL;
+}
+
+void* uc_arc_tar_open(gchar* path) {
+    g_printerr(G_STRLOC "TODO");
+    return NULL;
+}
+
+void uc_arc_tar_close(void* handle) {
+    g_printerr(G_STRLOC "TODO");
 }
 
 gboolean uc_arc_tar_is_supported() {

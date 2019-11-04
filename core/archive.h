@@ -7,7 +7,14 @@
 
 #include <glib.h>
 
+/**
+ * Implementation-dependant archive handle.
+ */
+typedef void* ArchiveHandle;
+
 FOREACH_ARCHIVE(GENERATE_FUNC_NEW)
+FOREACH_ARCHIVE(GENERATE_FUNC_OPEN)
+FOREACH_ARCHIVE(GENERATE_FUNC_CLOSE)
 FOREACH_ARCHIVE(GENERATE_FUNC_IS_SUPPORTED)
 
 #endif //ULTIMATECOMPRESSOR_ARCHIVE_H

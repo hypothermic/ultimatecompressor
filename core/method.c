@@ -14,8 +14,24 @@ static const IsSupportedFunc _uc_arc_func_is_supported_ptrs[] = {
         FOREACH_ARCHIVE(GENERATE_FUNC_IS_SUPPORTED_ENUM)
 };
 
+static const OpenArchiveFunc _uc_arc_func_open_ptrs[] = {
+        FOREACH_ARCHIVE(GENERATE_FUNC_OPEN_ENUM)
+};
+
+static const CloseArchiveFunc _uc_arc_func_close_ptrs[] = {
+        FOREACH_ARCHIVE(GENERATE_FUNC_CLOSE_ENUM)
+};
+
 const NewArchiveFunc uc_archive_get_func_new(const uc_archive_t* method) {
     return _uc_arc_func_new_ptrs[*method];
+}
+
+const OpenArchiveFunc uc_archive_get_func_open(const uc_archive_t* method) {
+    return _uc_arc_func_open_ptrs[*method];
+}
+
+const CloseArchiveFunc uc_archive_get_func_close(const uc_archive_t* method) {
+    return _uc_arc_func_close_ptrs[*method];
 }
 
 const IsSupportedFunc uc_archive_get_func_is_supported(const uc_archive_t* method) {

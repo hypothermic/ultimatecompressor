@@ -11,8 +11,10 @@
  * @param path Absolute path to the new archive
  * @returns pointer to the implementation-dependant structure. TODO make generic structure
  */
-typedef void*    (*NewArchiveFunc)  (gchar* path);
-typedef gboolean (*IsSupportedFunc) (void);
+typedef void*    (*NewArchiveFunc)   (gchar* path);
+typedef void*    (*OpenArchiveFunc)  (gchar* path);
+typedef void     (*CloseArchiveFunc) (void* handle);
+typedef gboolean (*IsSupportedFunc)  (void);
 
 #define FOREACH_ARCHIVE(METHOD)         \
         METHOD(s7z)                     \
@@ -36,6 +38,8 @@ typedef enum _uc_archive {
 } uc_archive_t;
 
 const NewArchiveFunc uc_archive_get_func_new(const uc_archive_t* method);
+const OpenArchiveFunc uc_archive_get_func_open(const uc_archive_t* method);
+const CloseArchiveFunc uc_archive_get_func_close(const uc_archive_t* method);
 const IsSupportedFunc uc_archive_get_func_is_supported(const uc_archive_t* method);
 const gchar* uc_archive_to_str(const uc_archive_t* method);
 
