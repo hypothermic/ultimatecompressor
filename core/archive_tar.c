@@ -2,12 +2,12 @@
 
 #include <glib.h>
 
-void* uc_arc_tar_new(gchar* path) {
+void* uc_arc_tar_new(const gchar* path) {
     g_printerr(G_STRLOC "TODO");
     return NULL;
 }
 
-void* uc_arc_tar_open(gchar* path) {
+void* uc_arc_tar_open(const gchar* path) {
     g_printerr(G_STRLOC "TODO");
     return NULL;
 }

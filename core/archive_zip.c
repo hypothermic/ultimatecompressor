@@ -4,11 +4,11 @@
 
 #include "../deps-zip/zip.h"
 
-void* uc_arc_zip_new(gchar* path) {
+void* uc_arc_zip_new(const gchar* path) {
     return zip_open(path, ZIP_DEFAULT_COMPRESSION_LEVEL, 'w');
 }
 
-void* uc_arc_zip_open(gchar* path) {
+void* uc_arc_zip_open(const gchar* path) {
     return zip_open(path, ZIP_DEFAULT_COMPRESSION_LEVEL, 'a');
 }
 

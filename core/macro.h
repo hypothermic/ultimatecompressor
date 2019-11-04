@@ -26,25 +26,25 @@
         uc_arc_ ## NAME ## _new,
 
 #define GENERATE_FUNC_NEW(NAME) \
-        ArchiveHandle uc_arc_ ## NAME ## _new (gchar* path);
+        ArchiveHandle uc_arc_ ## NAME ## _new (const gchar* path);
 
 #define GENERATE_FUNC_OPEN_ENUM(NAME)  \
         uc_arc_ ## NAME ## _open,
 
 #define GENERATE_FUNC_OPEN(NAME) \
-        ArchiveHandle uc_arc_ ## NAME ## _open (gchar* path);
+        ArchiveHandle uc_arc_ ## NAME ## _open (const gchar* path);
 
 #define GENERATE_FUNC_CLOSE_ENUM(NAME)  \
         uc_arc_ ## NAME ## _close,
 
 #define GENERATE_FUNC_CLOSE(NAME) \
-        void uc_arc_ ## NAME ## _close (ArchiveHandle handle);
+        void uc_arc_ ## NAME ## _close (const ArchiveHandle handle);
 
 #define GENERATE_FUNC_WRITEFILE_ENUM(NAME)  \
         uc_arc_ ## NAME ## _write_file,
 
 #define GENERATE_FUNC_WRITEFILE(NAME) \
-        void uc_arc_ ## NAME ## _write_file (ArchiveHandle handle, const gchar* file_path, const gchar* content);
+        void uc_arc_ ## NAME ## _write_file (const ArchiveHandle handle, const gchar* file_path, const gchar* content);
 
 #define GENERATE_FUNC_IS_SUPPORTED(NAME) \
         gboolean uc_arc_ ## NAME ## _is_supported ();

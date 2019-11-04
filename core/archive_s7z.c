@@ -2,12 +2,12 @@
 
 #include <glib.h>
 
-void* uc_arc_s7z_new(gchar* path) {
+void* uc_arc_s7z_new(const gchar* path) {
     g_printerr(G_STRLOC "TODO");
     return NULL;
 }
 
-void* uc_arc_s7z_open(gchar* path) {
+void* uc_arc_s7z_open(const gchar* path) {
     g_printerr(G_STRLOC "TODO");
     return NULL;
 }
