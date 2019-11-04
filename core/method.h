@@ -5,17 +5,21 @@
 
 #include "macro.h"
 
+#ifndef ArchiveHandle
+typedef void* ArchiveHandle;
+#endif
+
 /**
  * Creates a new archive at <i>path</i>.
  *
  * @param path Absolute path to the new archive
  * @returns pointer to the implementation-dependant structure. TODO make generic structure
  */
-typedef void*    (*NewArchiveFunc)         (gchar* path);
-typedef void*    (*OpenArchiveFunc)        (gchar* path);
-typedef void     (*CloseArchiveFunc)       (void* handle);
-typedef void     (*WriteToFileArchiveFunc) (void* handle, const gchar* file_path, const gchar* content);
-typedef gboolean (*IsSupportedFunc)  (void);
+typedef const ArchiveHandle (*NewArchiveFunc)         (const gchar* path);
+typedef const ArchiveHandle (*OpenArchiveFunc)        (const gchar* path);
+typedef void                (*CloseArchiveFunc)       (ArchiveHandle handle);
+typedef void                (*WriteToFileArchiveFunc) (ArchiveHandle handle, const gchar* file_path, const gchar* content);
+typedef gboolean            (*IsSupportedFunc)        (void);
 
 #define FOREACH_ARCHIVE(METHOD)         \
         METHOD(s7z)                     \

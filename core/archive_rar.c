@@ -12,11 +12,11 @@ void* uc_arc_rar_open(const gchar* path) {
     return NULL;
 }
 
-void uc_arc_rar_close(void* handle) {
+void uc_arc_rar_close(ArchiveHandle handle) {
     g_printerr(G_STRLOC "TODO");
 }
 
-void uc_arc_rar_write_file(void* handle, const gchar* file_path, const gchar* content) {
+void uc_arc_rar_write_file(ArchiveHandle handle, const gchar* file_path, const gchar* content) {
     g_printerr(G_STRLOC "TODO");
 }
 
