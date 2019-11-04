@@ -48,6 +48,7 @@ int main(int argc, char **argv) {
         UC_QUIT_WITH_VERR(ERR_CAT_PARSING_ARGS, ERR_FORMAT_UNSPECIFIED, "ZIP")
     }
 
+    // If the archive format is found, check if format is not disabled
     FOR_EACH_ARCHIVE {
         if (strcmp(uc_archive_to_str(&archive), arg_archive_format) == 0) {
             if (uc_archive_get_func_is_supported(&archive)()) {
@@ -58,9 +59,12 @@ int main(int argc, char **argv) {
         }
     }
 
+    // If the archive format is not found, quit
     if (!format || format == _UC_ARCHIVE_MAX) {
         UC_QUIT_WITH_VERR(ERR_CAT_PARSING_ARGS, ERR_FORMAT_NOT_FOUND, arg_archive_format)
     }
+
+    // TODO do stuff here
 
     // For good measure...
     if (error != NULL) {
