@@ -1,13 +1,23 @@
 #ifndef MAGTUBE_MACRO_H
 #define MAGTUBE_MACRO_H
 
+// Include build.h for reading UC_DEBUG_ENABLED
+#include "build.h"
+
 #define GENERATE_STRING(NAME) #NAME,
 #define GENERATE_ENUM(NAME) NAME,
+
 #define GENERATE_CONSTANT_INT(VALUE, NAME, ...) \
         const int NAME = VALUE ;
 
+#define GENERATE_EXTERN_CONSTANT_INT(UNUSED, NAME, ...) \
+        extern const int NAME ;
+
 #define GENERATE_CONSTANT_STRING(UNUSED, NAME, VALUE, ...) \
         const gchar* NAME ## _STR = #VALUE ;
+
+#define GENERATE_EXTERN_CONSTANT_STRING(UNUSED, NAME, ...) \
+        extern const gchar* NAME ## _STR ;
 
 #define GENERATE_FUNC_ENUM(NAME)  \
         uc_arc_ ## NAME,
@@ -32,5 +42,20 @@
 
 #define GENERATE_SWITCH(NAME) \
         case ## NAME: ## return [NAME]; break;
+
+#ifdef UC_DEBUG_ENABLED
+
+#define PRINT_DEBUG(MESSAGE) \
+        g_printerr(MESSAGE);
+
+#define VPRINT_DEBUG(MESSAGE, ...) \
+        g_printerr(MESSAGE, __VA_ARGS__);
+
+#else
+
+#define PRINT_DEBUG(MESSAGE)
+#define VPRINT_DEBUG(MESSAGE, ...)
+
+#endif
 
 #endif //MAGTUBE_MACRO_H

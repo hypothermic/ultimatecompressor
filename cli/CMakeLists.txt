@@ -1,6 +1,6 @@
 #add_subdirectory(../core ../lib_build)
 
-add_executable(uccli main.c error.h)
+add_executable(uccli main.c)
 target_link_libraries(uccli uccore)
 
 # GNOME libraries

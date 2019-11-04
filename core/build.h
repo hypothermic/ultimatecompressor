@@ -4,4 +4,8 @@
 #define UC_API_VERSION "10.0.1"
 #define UC_BUILD_VERSION "0021"
 
+#ifndef UC_DEBUG_ENABLED
+#define UC_DEBUG_ENABLED TRUE
+#endif
+
 #endif //ULTIMATECOMPRESSOR_BUILD_H

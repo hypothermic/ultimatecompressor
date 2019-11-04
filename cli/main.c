@@ -1,27 +1,29 @@
 #include <glib.h>
 
-#include "error.h"
+#include "../core/error.h"
 
 #include "../core/archive.h"
 #include "../core/mode.h"
 
+#define __DEBUG__ TRUE
+
 /**
  * Which mode to perform.<br />
- * Only a single one of these must be true.
+ * Only a single one, and exactly one, of these must be true.
  */
 static gboolean arg_compress   = FALSE,
                 arg_decompress = FALSE;
 
-static gchar** arg_input_file_array;
-static gchar*  arg_output_file;
-static gchar*  arg_archive_format;
+static gchar** arg_input_file_array = NULL;
+static gchar*  arg_output_file      = NULL;
+static gchar*  arg_archive_format   = NULL;
 
 static const GOptionEntry command_entries[] = {
-        /* --- Mode; one of these must be used --- */
-        {"compress",    'c', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_NONE,           &arg_compress,
+        /* --- Mode; exactly one (1) of these must be used --- */
+        {"compress",    'c', G_OPTION_FLAG_NONE,   G_OPTION_ARG_NONE,           &arg_compress,
                 "Activates the compress mode", NULL},
-        {"decompress",  'd', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_NONE,           &arg_decompress,
-                "Activates the compress mode", NULL},
+        {"decompress",  'd', G_OPTION_FLAG_NONE,   G_OPTION_ARG_NONE,           &arg_decompress,
+                "Activates the decompress mode", NULL},
 
         /* --- Mode options; these are required --- */
         {"input",       'i', G_OPTION_FLAG_NONE,   G_OPTION_ARG_FILENAME_ARRAY, &arg_input_file_array,
@@ -42,8 +44,12 @@ int main(int argc, char **argv) {
 
     g_print("\nUltimateCompressor CLI v%s build %s\n", UC_API_VERSION, UC_BUILD_VERSION);
 
+#ifdef UC_DEBUG_ENABLED
+    g_print("Debug mode is enabled. You may see detailed messages in stderr.\n\n");
+#endif
+
     // Parse args
-    option_context = g_option_context_new("Main Arguments");
+    option_context = g_option_context_new(NULL);
     g_option_context_add_main_entries(option_context, command_entries, NULL);
     if (!g_option_context_parse(option_context, &argc, &argv, &error)) {
         g_printerr("%s: %s\n", argv[0], error->message);
@@ -84,7 +90,14 @@ int main(int argc, char **argv) {
         UC_QUIT_WITH_ERR(ERR_CAT_PARSING_ARGS, ERR_MODE_NOT_SPECIFIED)
     }
 
+    // TODO un-hardcode in case we get more modes
+    uc_mode_t mode = COMPRESS;
+    if (arg_decompress) {
+        mode = DECOMPRESS;
+    }
 
+    // TODO fix len
+    uc_mode_func_perform(&mode)(arg_input_file_array, 69, arg_output_file, &format);
 
     // TODO do stuff here
 
