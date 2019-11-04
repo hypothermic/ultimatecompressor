@@ -17,3 +17,7 @@ This module contains the executable that can be run from the command-line.
 ### GUI
 
 This module contains a GTK+ graphical application.
+
+## Acknowledgements
+
+UltimateCompressor uses the public-domain "zip" library by Kuba Podgorski (kuba--). For convenience, it is included in the VCS repo under the directory "deps-zip".
