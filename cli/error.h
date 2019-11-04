@@ -8,15 +8,16 @@
  */
 #define FOREACH_ERROR(FUNC) \
             /* - Individual errors - */ \
-            FUNC(0,   ERR_NONE,                     The executable exited gracefully    ) \
-            FUNC(1,   ERR_PARSE_OPTIONS,            Failed to parse option context      ) \
-            FUNC(2,   ERR_INPUT_UNSPECIFIED,        Input files/paths unspecified       ) \
-            FUNC(3,   ERR_OUTPUT_UNSPECIFIED,       Output file/path unspecified        ) \
-            FUNC(4,   ERR_FORMAT_UNSPECIFIED,       Archive format unspecified          ) \
-            FUNC(5,   ERR_FORMAT_NOT_SUPPORTED,     Archive format not supported        ) \
-            FUNC(6,   ERR_FORMAT_NOT_FOUND,         No matching archive format for      ) \
+            FUNC(0,   ERR_NONE,                     The executable exited gracefully          ) \
+            FUNC(1,   ERR_PARSE_OPTIONS,            Failed to parse option context            ) \
+            FUNC(2,   ERR_INPUT_UNSPECIFIED,        Input files/paths unspecified             ) \
+            FUNC(3,   ERR_OUTPUT_UNSPECIFIED,       Output file/path unspecified              ) \
+            FUNC(4,   ERR_FORMAT_UNSPECIFIED,       Archive format unspecified                ) \
+            FUNC(5,   ERR_FORMAT_NOT_SUPPORTED,     Archive format not supported              ) \
+            FUNC(6,   ERR_FORMAT_NOT_FOUND,         No matching archive format for            ) \
+            FUNC(7,   ERR_MODE_NOT_SPECIFIED,       One [1] operating mode must be specified  ) \
             /* - Error categories - */ \
-            FUNC(400, ERR_CAT_PARSING_ARGS,         Error while parsing arguments       ) \
+            FUNC(400, ERR_CAT_PARSING_ARGS,         Error while parsing arguments             ) \
 
 FOREACH_ERROR(GENERATE_CONSTANT_INT)
 FOREACH_ERROR(GENERATE_CONSTANT_STRING)

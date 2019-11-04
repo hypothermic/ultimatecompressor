@@ -5,17 +5,31 @@
 #include "../core/archive.h"
 #include "../core/mode.h"
 
+/**
+ * Which mode to perform.<br />
+ * Only a single one of these must be true.
+ */
+static gboolean arg_compress   = FALSE,
+                arg_decompress = FALSE;
+
 static gchar** arg_input_file_array;
 static gchar*  arg_output_file;
 static gchar*  arg_archive_format;
 
 static const GOptionEntry command_entries[] = {
-        {"input",       'i', G_OPTION_FLAG_NONE, G_OPTION_ARG_FILENAME_ARRAY, &arg_input_file_array,
+        /* --- Mode; one of these must be used --- */
+        {"compress",    'c', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_NONE,           &arg_compress,
+                "Activates the compress mode", NULL},
+        {"decompress",  'd', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_NONE,           &arg_decompress,
+                "Activates the compress mode", NULL},
+
+        /* --- Mode options; these are required --- */
+        {"input",       'i', G_OPTION_FLAG_NONE,   G_OPTION_ARG_FILENAME_ARRAY, &arg_input_file_array,
                 "The files that will be copied into the output archive", NULL},
-        {"output",      'o', G_OPTION_FLAG_NONE, G_OPTION_ARG_FILENAME,       &arg_output_file,
+        {"output",      'o', G_OPTION_FLAG_NONE,   G_OPTION_ARG_FILENAME,       &arg_output_file,
                 "Where to store the output archive", NULL},
 
-        {"format",      'f', G_OPTION_FLAG_NONE, G_OPTION_ARG_STRING,         &arg_archive_format,
+        {"format",      'f', G_OPTION_FLAG_NONE,   G_OPTION_ARG_STRING,         &arg_archive_format,
                 "Which archive format to use", NULL},
 
         {NULL}
@@ -63,6 +77,14 @@ int main(int argc, char **argv) {
     if (!format || format == _UC_ARCHIVE_MAX) {
         UC_QUIT_WITH_VERR(ERR_CAT_PARSING_ARGS, ERR_FORMAT_NOT_FOUND, arg_archive_format)
     }
+
+    // If no modes are specified, quit
+    // If more than 1 mode is specified, quit
+    if (arg_compress == arg_decompress) {
+        UC_QUIT_WITH_ERR(ERR_CAT_PARSING_ARGS, ERR_MODE_NOT_SPECIFIED)
+    }
+
+
 
     // TODO do stuff here
 
