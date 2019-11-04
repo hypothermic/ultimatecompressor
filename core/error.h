@@ -1,10 +1,13 @@
 #ifndef ULTIMATECOMPRESSOR_ERROR_H
 #define ULTIMATECOMPRESSOR_ERROR_H
 
-#include "../core/macro.h"
+#include <glib.h>
+
+#include "macro.h"
 
 /**
- * A list with all error codes and relating messages
+ * A list with all error codes and relating messages.<br />
+ * Some of these may be implementation-dependant.
  */
 #define FOREACH_ERROR(FUNC) \
             /* - Individual errors - */ \
@@ -16,11 +19,14 @@
             FUNC(5,   ERR_FORMAT_NOT_SUPPORTED,     Archive format not supported              ) \
             FUNC(6,   ERR_FORMAT_NOT_FOUND,         No matching archive format for            ) \
             FUNC(7,   ERR_MODE_NOT_SPECIFIED,       One [1] operating mode must be specified  ) \
+            FUNC(8,   ERR_FILE_NOT_READABLE,        Input file cannot be accessed for reading ) \
+            FUNC(9,   ERR_FILE_READ_FAILED,         Error while reading input file            ) \
             /* - Error categories - */ \
             FUNC(400, ERR_CAT_PARSING_ARGS,         Error while parsing arguments             ) \
+            FUNC(401, ERR_CAT_PERFORM_MODE,         Error while performing mode               ) \
 
-FOREACH_ERROR(GENERATE_CONSTANT_INT)
-FOREACH_ERROR(GENERATE_CONSTANT_STRING)
+FOREACH_ERROR(GENERATE_EXTERN_CONSTANT_INT)
+FOREACH_ERROR(GENERATE_EXTERN_CONSTANT_STRING)
 
 /**
  * Prints the error messages related to their indexes using g_printerr().
