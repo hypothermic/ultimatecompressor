@@ -13,6 +13,7 @@ gboolean uc_mode_COMPRESS_perform(gchar** input_files, gsize input_files_len, gc
         UC_QUIT_WITH_VERR(ERR_CAT_PERFORM_MODE, ERR_DESTINATION_EXISTS, output_destination)
     }
 
+    // Create a new archive for writing into
     ArchiveHandle archive_handle = uc_archive_get_func_new(format)(output_destination);
 
     // Loop over each input file
@@ -34,10 +35,14 @@ gboolean uc_mode_COMPRESS_perform(gchar** input_files, gsize input_files_len, gc
             break;
         }
 
-        //parse_raw(content);
+        uc_archive_get_func_write_file(format)(archive_handle, input_file, content);
 
         g_free(content);
         PRINT_DEBUG(G_STRLOC ": finished\n\n");
     }
+
+    // Free the archive struct
+    uc_archive_get_func_close(format)(archive_handle);
+
     return TRUE;
 }

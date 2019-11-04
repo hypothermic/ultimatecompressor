@@ -22,6 +22,10 @@ static const CloseArchiveFunc _uc_arc_func_close_ptrs[] = {
         FOREACH_ARCHIVE(GENERATE_FUNC_CLOSE_ENUM)
 };
 
+static const WriteToFileArchiveFunc _uc_arc_func_write_file_ptrs[] = {
+        FOREACH_ARCHIVE(GENERATE_FUNC_WRITEFILE_ENUM)
+};
+
 const NewArchiveFunc uc_archive_get_func_new(const uc_archive_t* method) {
     return _uc_arc_func_new_ptrs[*method];
 }
@@ -32,6 +36,10 @@ const OpenArchiveFunc uc_archive_get_func_open(const uc_archive_t* method) {
 
 const CloseArchiveFunc uc_archive_get_func_close(const uc_archive_t* method) {
     return _uc_arc_func_close_ptrs[*method];
+}
+
+const WriteToFileArchiveFunc uc_archive_get_func_write_file(const uc_archive_t* method) {
+    return _uc_arc_func_write_file_ptrs[*method];
 }
 
 const IsSupportedFunc uc_archive_get_func_is_supported(const uc_archive_t* method) {

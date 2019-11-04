@@ -40,6 +40,12 @@
 #define GENERATE_FUNC_CLOSE(NAME) \
         void uc_arc_ ## NAME ## _close (ArchiveHandle handle);
 
+#define GENERATE_FUNC_WRITEFILE_ENUM(NAME)  \
+        uc_arc_ ## NAME ## _write_file,
+
+#define GENERATE_FUNC_WRITEFILE(NAME) \
+        void uc_arc_ ## NAME ## _write_file (ArchiveHandle handle, const gchar* file_path, const gchar* content);
+
 #define GENERATE_FUNC_IS_SUPPORTED(NAME) \
         gboolean uc_arc_ ## NAME ## _is_supported ();
 
