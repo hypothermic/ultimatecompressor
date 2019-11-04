@@ -1,5 +1,7 @@
 #include <glib.h>
 
+#include "error.h"
+
 #include "../core/archive.h"
 #include "../core/mode.h"
 
@@ -31,22 +33,19 @@ int main(int argc, char **argv) {
     g_option_context_add_main_entries(option_context, command_entries, NULL);
     if (!g_option_context_parse(option_context, &argc, &argv, &error)) {
         g_printerr("%s: %s\n", argv[0], error->message);
-        return 1;
+        return ERR_PARSE_OPTIONS;
     }
     g_option_context_free(option_context);
 
     // Check args
     if (!arg_input_file_array) {
-        g_printerr("%s: %s \n", "Error while parsing arguments", "Input files not specified");
-        return 2;
+        UC_QUIT_WITH_ERR(ERR_CAT_PARSING_ARGS, ERR_INPUT_UNSPECIFIED)
     }
     if (!arg_output_file) {
-        g_printerr("%s: %s \n", "Error while parsing arguments", "Output path not specified");
-        return 3;
+        UC_QUIT_WITH_ERR(ERR_CAT_PARSING_ARGS, ERR_OUTPUT_UNSPECIFIED)
     }
     if (!arg_archive_format) {
-        g_printerr("%s: %s \n", "Error while parsing arguments", "Archive format not specified");
-        return 4;
+        UC_QUIT_WITH_VERR(ERR_CAT_PARSING_ARGS, ERR_FORMAT_UNSPECIFIED, "ZIP")
     }
 
     FOR_EACH_ARCHIVE {
@@ -54,20 +53,22 @@ int main(int argc, char **argv) {
             if (uc_archive_get_func_is_supported(&archive)()) {
                 format = archive;
             } else {
-                g_printerr("%s: %s %s \n", "Error while parsing arguments", uc_archive_to_str(&archive), "archive format is not supported");
-                return 5;
+                UC_QUIT_WITH_VERR(ERR_CAT_PARSING_ARGS, ERR_FORMAT_NOT_SUPPORTED, uc_archive_to_str(&archive))
             }
         }
     }
 
     if (!format || format == _UC_ARCHIVE_MAX) {
-        g_printerr("%s: %s \"%s\"\n", "Error while parsing arguments", "No format matching", arg_archive_format);
-        return 6;
+        UC_QUIT_WITH_VERR(ERR_CAT_PARSING_ARGS, ERR_FORMAT_NOT_FOUND, arg_archive_format)
     }
 
     // For good measure...
-    g_error_free(error);
+    if (error != NULL) {
+        g_error_free(error);
+    }
     g_strfreev(arg_input_file_array);
     g_free(arg_output_file);
     g_free(arg_archive_format);
+
+    UC_QUIT_GRACEFUL()
 }
