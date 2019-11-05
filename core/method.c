@@ -2,12 +2,18 @@
 
 #include "archive.h"
 
+// TODO use macros for this........
+
 static const char* _uc_arc_str[] = {
         FOREACH_ARCHIVE(GENERATE_STRING)
 };
 
 static const NewArchiveFunc _uc_arc_func_new_ptrs[] = {
         FOREACH_ARCHIVE(GENERATE_FUNC_NEW_ENUM)
+};
+
+static const ExtractArchiveFunc _uc_arc_func_extract_ptrs[] = {
+        FOREACH_ARCHIVE(GENERATE_FUNC_EXTRACT_ENUM)
 };
 
 static const IsSupportedFunc _uc_arc_func_is_supported_ptrs[] = {
@@ -32,6 +38,10 @@ const NewArchiveFunc uc_archive_get_func_new(const uc_archive_t* method) {
 
 const OpenArchiveFunc uc_archive_get_func_open(const uc_archive_t* method) {
     return _uc_arc_func_open_ptrs[*method];
+}
+
+const ExtractArchiveFunc uc_archive_get_func_extract(const uc_archive_t* method) {
+    return _uc_arc_func_extract_ptrs[*method];
 }
 
 const CloseArchiveFunc uc_archive_get_func_close(const uc_archive_t* method) {

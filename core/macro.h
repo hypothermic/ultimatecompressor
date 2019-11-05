@@ -34,6 +34,12 @@
 #define GENERATE_FUNC_OPEN(NAME) \
         ArchiveHandle uc_arc_ ## NAME ## _open (const gchar* path);
 
+#define GENERATE_FUNC_EXTRACT_ENUM(NAME)  \
+        uc_arc_ ## NAME ## _extract,
+
+#define GENERATE_FUNC_EXTRACT(NAME) \
+        gboolean uc_arc_ ## NAME ## _extract (const gchar* path, const gchar* dest);
+
 #define GENERATE_FUNC_CLOSE_ENUM(NAME)  \
         uc_arc_ ## NAME ## _close,
 

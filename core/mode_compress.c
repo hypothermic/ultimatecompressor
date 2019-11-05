@@ -46,6 +46,7 @@ gboolean uc_mode_COMPRESS_perform(gchar** input_files, gsize input_files_len, gc
     }
 
     // Free the archive struct
+    VPRINT_DEBUG("Closing \"%s\" archive at location \"%s\"\n", uc_archive_to_str(format), output_destination);
     uc_archive_get_func_close(format)(archive_handle);
 
     return TRUE;

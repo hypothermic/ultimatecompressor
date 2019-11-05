@@ -28,6 +28,15 @@ typedef const ArchiveHandle (*OpenArchiveFunc)        (const gchar* path);
 /**
  * Closes the archive related to the ArchiveHandle.
  *
+ * @param path Path to the existing archive
+ * @param dest Path to the result folder (must not exist)
+ * @returns void
+ */
+typedef gboolean            (*ExtractArchiveFunc)     (const gchar* path, const gchar* dest);
+
+/**
+ * Closes the archive related to the ArchiveHandle.
+ *
  * @param handle Pointer to the implementation-dependant structure.
  * @returns void
  */
@@ -38,7 +47,7 @@ typedef void                (*CloseArchiveFunc)       (ArchiveHandle handle);
  *
  * @param handle Pointer to the implementation-dependant structure.
  * @param file_path The name of the new file to be created.
- * @param
+ * @param content Unsigned bytes to
  * @returns void
  */
 typedef void                (*WriteToFileArchiveFunc) (ArchiveHandle handle, const gchar* file_path, const gchar* content);
@@ -68,6 +77,7 @@ typedef enum _uc_archive {
 
 const NewArchiveFunc uc_archive_get_func_new(const uc_archive_t* method);
 const OpenArchiveFunc uc_archive_get_func_open(const uc_archive_t* method);
+const ExtractArchiveFunc uc_archive_get_func_extract(const uc_archive_t* method);
 const CloseArchiveFunc uc_archive_get_func_close(const uc_archive_t* method);
 const WriteToFileArchiveFunc uc_archive_get_func_write_file(const uc_archive_t* method);
 const IsSupportedFunc uc_archive_get_func_is_supported(const uc_archive_t* method);
