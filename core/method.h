@@ -16,9 +16,38 @@ typedef void* ArchiveHandle;
  * @returns pointer to the implementation-dependant structure. TODO make generic structure
  */
 typedef const ArchiveHandle (*NewArchiveFunc)         (const gchar* path);
+
+/**
+ * Opens an archive at <i>path</i> for reading and writing.
+ *
+ * @param path Absolute path to the new archive
+ * @returns pointer to the implementation-dependant structure. TODO make generic structure
+ */
 typedef const ArchiveHandle (*OpenArchiveFunc)        (const gchar* path);
+
+/**
+ * Closes the archive related to the ArchiveHandle.
+ *
+ * @param handle Pointer to the implementation-dependant structure.
+ * @returns void
+ */
 typedef void                (*CloseArchiveFunc)       (ArchiveHandle handle);
+
+/**
+ * Closes the archive related to the ArchiveHandle.
+ *
+ * @param handle Pointer to the implementation-dependant structure.
+ * @param file_path The name of the new file to be created.
+ * @param
+ * @returns void
+ */
 typedef void                (*WriteToFileArchiveFunc) (ArchiveHandle handle, const gchar* file_path, const gchar* content);
+
+/**
+ * Checks if the format is supported.
+ *
+ * @returns boolean If the format is supported or not
+ */
 typedef gboolean            (*IsSupportedFunc)        (void);
 
 #define FOREACH_ARCHIVE(METHOD)         \
@@ -26,11 +55,6 @@ typedef gboolean            (*IsSupportedFunc)        (void);
         METHOD(zip)                     \
         METHOD(tar)                     \
         METHOD(rar)
-
-#define FOREACH_COMPRESSION(METHOD)     \
-        METHOD(ZIP)                     \
-        METHOD(TAR)                     \
-        METHOD(RAR)
 
 #define FOR_EACH_ARCHIVE for (uc_archive_t archive = s7z; archive < _UC_ARCHIVE_MAX; archive++)
 
