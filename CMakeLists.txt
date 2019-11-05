@@ -23,6 +23,6 @@ if(BUILD_CLI)
 endif()
 
 # If desired, build the GUI
-#if(BUILD_GUI)
-#    add_subdirectory(gui)
-#endif()
+if(BUILD_GUI)
+    add_subdirectory(gui)
+endif()

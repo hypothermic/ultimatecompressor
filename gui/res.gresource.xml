@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+    <gresource prefix="/nl/hypothermic/ultimatecompressor/gui">
+        <file compressed="true" preprocess="xml-stripblanks">window.ui</file>
+    </gresource>
+    <gresource prefix="/nl/hypothermic/ultimatecompressor/gui">
+        <file compressed="true">window.css</file>
+    </gresource>
+</gresources>
