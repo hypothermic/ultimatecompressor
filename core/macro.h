@@ -64,10 +64,10 @@
 #ifdef UC_DEBUG_ENABLED
 
 #define PRINT_DEBUG(MESSAGE) \
-        g_printerr(MESSAGE);
+        g_printerr(G_STRLOC MESSAGE);
 
 #define VPRINT_DEBUG(MESSAGE, ...) \
-        g_printerr(MESSAGE, __VA_ARGS__);
+        g_printerr(G_STRLOC ": " MESSAGE "\n", __VA_ARGS__);
 
 #else
 
