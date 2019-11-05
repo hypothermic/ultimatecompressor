@@ -59,7 +59,7 @@
         uc_arc_ ## NAME ## _is_supported,
 
 #define GENERATE_FUNC_MODE_PERFORM(NAME) \
-        gboolean uc_mode_ ## NAME ## _perform (gchar** input_files, gsize input_files_len, gchar* output_destination, uc_archive_t* format);
+        gboolean uc_mode_ ## NAME ## _perform (const gchar** input_files, const gchar* output_destination, const uc_archive_t* format);
 
 #define GENERATE_FUNC_MODE_PERFORM_ENUM(NAME) \
         uc_mode_ ## NAME ## _perform,

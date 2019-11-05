@@ -6,7 +6,7 @@
 #include "archive.h"
 #include "macro.h"
 
-typedef gboolean (*ModePerformFunc) (gchar** input_files, gsize input_files_len, gchar* output_destination, uc_archive_t* format);
+typedef gboolean (*ModePerformFunc) (const gchar** input_files, const gchar* output_destination, const uc_archive_t* format);
 
 #define FOREACH_MODE(MODE)                 \
         MODE(COMPRESS)                     \

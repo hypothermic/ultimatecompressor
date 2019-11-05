@@ -7,7 +7,7 @@
 
 #include "mode.h"
 
-gboolean uc_mode_DECOMPRESS_perform(gchar** input_files, gsize input_files_len, gchar* output_destination, uc_archive_t* format) {
+gboolean uc_mode_DECOMPRESS_perform(const gchar** input_files, const gchar* output_destination, const uc_archive_t* format) {
     // Check if output file already exists; do not overwrite
     VPRINT_DEBUG("Checking if location \"%s\" is valid", output_destination);
     if (g_access(output_destination, O_RDONLY) == 0) {
@@ -17,7 +17,7 @@ gboolean uc_mode_DECOMPRESS_perform(gchar** input_files, gsize input_files_len, 
 
     // Loop over each input file
     for (int i = 0; input_files[i]; i++) {
-        gchar* input_file = input_files[i];
+        const gchar* input_file = input_files[i];
 
         // If file doesn't exist or user doesn't have permission to read file
         VPRINT_DEBUG("Checking read access for input file \"%s\"", input_file);

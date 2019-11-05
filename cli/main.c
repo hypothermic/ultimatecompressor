@@ -96,10 +96,7 @@ int main(int argc, char **argv) {
         mode = DECOMPRESS;
     }
 
-    // TODO fix len
-    uc_mode_func_perform(&mode)(arg_input_file_array, 69, arg_output_file, &format);
-
-    // TODO do stuff here
+    uc_mode_func_perform(&mode)((const gchar **) arg_input_file_array, arg_output_file, &format);
 
     // For good measure...
     if (error != NULL) {
