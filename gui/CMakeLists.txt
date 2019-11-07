@@ -14,6 +14,9 @@ glib_compile_resources(GLIB_RESOURCES_LIB
 vala_precompile(
     VALA_C
         Application.vala
+        ArrayList.vala
+        Callback.vala
+        FileListBoxRow.vala
         Window.vala
     PACKAGES
         gtk+-3.0

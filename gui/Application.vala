@@ -2,6 +2,7 @@ using GLib;
 using LuDB;
 
 using Gtk;
+using UC;
 
 public static int main(string[] args) {
 	Environment.set_application_name("UltimateCompressor");

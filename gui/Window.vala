@@ -6,33 +6,36 @@ using Gdk;
 [GtkTemplate (ui = "/nl/hypothermic/ultimatecompressor/gui/window.ui")]
 public class UC.Window : Gtk.Window {
 
-	construct {
-
-	}
-
     [GtkChild (name="main-container", internal="true")]
-    private Box main_container;
+    private Gtk.Box main_container;
 
     [GtkChild (name="content-container", internal="true")]
-    private Box content_container;
+    private Gtk.Box content_container;
 
     [GtkChild (name="content-title", internal="true")]
-    private Label content_title;
+    private Gtk.Label content_title;
 
     [GtkChild (name="content-file-list", internal="true")]
-    private ListBox content_file_list;
+    private Gtk.ListBox content_file_list;
 
     [GtkChild (name="content-file-chooser", internal="true")]
-    private FileChooserButton content_file_chooser;
+    private Gtk.FileChooserButton content_file_chooser;
 
     [GtkChild (name="content-action-container", internal="true")]
-    private Box content_action_container;
+    private Gtk.Box content_action_container;
 
     [GtkChild (name="content-action-compress", internal="true")]
-    private Button content_action_compress;
+    private Gtk.Button content_action_compress;
 
     [GtkChild (name="content-action-decompress", internal="true")]
-    private Button content_action_decompress;
+    private Gtk.Button content_action_decompress;
+
+    private UC.ArrayList<UC.FileListBoxRow> list_rows = new UC.ArrayList<UC.FileListBoxRow>();
+
+    construct {
+        UC.FileListBoxRow row = new UC.FileListBoxRow("My Files");
+        content_file_list.insert(row, -1);
+    }
 
 	[GtkCallback]
     private void window_destroy_cb() {
@@ -41,15 +44,20 @@ public class UC.Window : Gtk.Window {
 
 	[GtkCallback]
 	private void action_file_set_cb() {
-	    stderr.printf("TODO");
+        UC.FileListBoxRow row = new UC.FileListBoxRow(content_file_chooser.get_filename());
+        list_rows.add(row);
+        content_file_list.insert(row, -1);
 	}
 
     [GtkCallback]
 	private void window_show_cb() {
-	    stderr.printf("ACTIVATE");
 	    Gtk.CssProvider css_provider = new Gtk.CssProvider();
-	    css_provider.load_from_resource("/nl/hypothermic/ultimatecompressor/gui/window.css");
-        Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), css_provider, Gtk.STYLE_PROVIDER_PRIORITY_USER);
+	    try {
+	        css_provider.load_from_resource("/nl/hypothermic/ultimatecompressor/gui/window.css");
+            Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), css_provider, Gtk.STYLE_PROVIDER_PRIORITY_USER);
+        } catch (Error error) {
+            stderr.printf("A resource could not be loaded: %s\n", error.message);
+        }
 	}
 }
 
