@@ -30,7 +30,7 @@ THE SOFTWARE.
   <!-- interface-name UltimateCompressor -->
   <!-- interface-description A file archiving and compression utility with the goal to support as many formats as possible.  -->
   <!-- interface-copyright 2018-2019 Hypothermic IT <admin@hypothermic.nl> -->
-  <template class="Window" parent="GtkWindow">
+  <template class="UCWindow" parent="GtkWindow">
     <property name="can_focus">False</property>
     <signal name="destroy" handler="window_destroy_cb" swapped="no"/>
     <child>
