@@ -3,6 +3,8 @@ using GLib;
 using Gtk;
 using Gdk;
 
+using UC;
+
 /**
  * The main window which shows an interactive file input list and buttons with compress/decompress.
  */
@@ -67,6 +69,20 @@ public class UC.Window : Gtk.Window {
         	css_provider.load_from_resource("/nl/hypothermic/ultimatecompressor/gui/window.css");
             Gtk.StyleContext.add_provider_for_screen((Gdk.Screen) current_screen, css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 	    }
+	}
+
+    [GtkCallback (name="action_compress_cb")]
+	private void action_compress_cb() {
+        action_perform();
+	}
+
+    [GtkCallback (name="action_decompress_cb")]
+	private void action_decompress_cb() {
+        action_perform();
+	}
+
+	private void action_perform() {
+        stderr.printf("Performing %s\n", UC.Action.COMPRESS.get_name());
 	}
 }
 

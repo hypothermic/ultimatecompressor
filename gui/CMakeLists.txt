@@ -14,6 +14,7 @@ glib_compile_resources(GLIB_RESOURCES_LIB
 vala_precompile(
     VALA_C
         Application.vala
+        Action.vala
         ArrayList.vala
         Callback.vala
         FileListBoxRow.vala

@@ -300,6 +300,7 @@ THE SOFTWARE.
                     <property name="margin_top">2</property>
                     <property name="margin_bottom">2</property>
                     <property name="hexpand">True</property>
+                    <signal name="clicked" handler="action_compress_cb" swapped="no"/>
                     <child internal-child="accessible">
                       <object class="AtkObject" id="content-action-compress-atkobject">
                         <property name="AtkObject::accessible-role" translatable="yes">push-button</property>
@@ -323,6 +324,7 @@ THE SOFTWARE.
                     <property name="margin_top">2</property>
                     <property name="margin_bottom">2</property>
                     <property name="hexpand">True</property>
+                    <signal name="clicked" handler="action_decompress_cb" swapped="no"/>
                     <child internal-child="accessible">
                       <object class="AtkObject" id="content-action-decompress-atkobject">
                         <property name="AtkObject::accessible-role" translatable="yes">push-button</property>
