@@ -19,6 +19,7 @@ vala_precompile(
         Callback.vala
         FileListBoxRow.vala
         Window.vala
+        Archive.vala
     PACKAGES
         gtk+-3.0
         posix

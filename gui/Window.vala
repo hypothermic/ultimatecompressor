@@ -4,6 +4,7 @@ using Gtk;
 using Gdk;
 
 using UC;
+using UC.Arc;
 
 /**
  * The main window which shows an interactive file input list and buttons with compress/decompress.
@@ -86,7 +87,7 @@ public class UC.Window : Gtk.Window {
 	}
 
 	private void action_perform() {
-        stderr.printf("Performing %s\n", UC.Action.COMPRESS.get_name());
+        stderr.printf("Performing %s, %d\n", UC.Action.COMPRESS.get_name(), UC.Arc.rar_is_supported() ? 1 : 69);
 	}
 }
 
