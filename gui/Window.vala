@@ -40,6 +40,10 @@ public class UC.Window : Gtk.Window {
      */
     private UC.ArrayList<UC.FileListBoxRow> list_rows = new UC.ArrayList<UC.FileListBoxRow>();
 
+    static construct {
+        UC.Action.init();
+    }
+
     construct {
         list_rows.added.connect((row) => {
             content_file_list.insert(row, -1);
