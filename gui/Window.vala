@@ -52,19 +52,25 @@ public class UC.Window : Gtk.Window {
 
 	[GtkCallback]
 	private void action_file_set_cb() {
-        UC.FileListBoxRow row = new UC.FileListBoxRow(content_file_chooser.get_filename());
-        list_rows.add(row);
+	    string? filename = content_file_chooser.get_filename();
+	    if (filename != null) {
+            UC.FileListBoxRow row = new UC.FileListBoxRow((string) filename);
+            list_rows.add(row);
+	    }
 	}
 
     [GtkCallback]
 	private void window_show_cb() {
 	    Gtk.CssProvider css_provider = new Gtk.CssProvider();
-	    try {
-	        css_provider.load_from_resource("/nl/hypothermic/ultimatecompressor/gui/window.css");
-            Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), css_provider, Gtk.STYLE_PROVIDER_PRIORITY_USER);
-        } catch (Error error) {
-            stderr.printf("A resource could not be loaded: %s\n", error.message);
-        }
+	    unowned Gdk.Screen? current_screen = Gdk.Screen.get_default();
+	    if (current_screen != null) {
+	        try {
+        	    css_provider.load_from_resource("/nl/hypothermic/ultimatecompressor/gui/window.css");
+                Gtk.StyleContext.add_provider_for_screen((Gdk.Screen) current_screen, css_provider, Gtk.STYLE_PROVIDER_PRIORITY_USER);
+            } catch (Error error) {
+                stderr.printf("A resource could not be loaded: %s\n", error.message);
+            }
+	    }
 	}
 }
 

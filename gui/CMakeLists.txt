@@ -23,6 +23,7 @@ vala_precompile(
         posix
     OPTIONS
         --thread
+        --enable-experimental-non-null
         --gresources=${CMAKE_CURRENT_SOURCE_DIR}/res.gresource.xml
 #    CUSTOM_VAPIS
 #        some_vapi.vapi

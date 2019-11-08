@@ -24,4 +24,19 @@ public class UC.ArrayList<G> : GLib.Object {
         array[count-1] = object;
         added(object);
     }
+
+    /**
+     * Calls the delegate for each element in the array, passing the element.
+     *
+     * ```vala
+     * list_rows.iterate((row) => {
+     *     stderr.printf("HELLOWORLD");
+     * });
+     * ```
+     */
+    public void iterate(Callback<G> on_element) {
+        foreach (G element in array) {
+            on_element(element);
+        }
+    }
 }
