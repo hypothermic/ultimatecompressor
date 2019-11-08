@@ -45,12 +45,12 @@ public class UC.Window : Gtk.Window {
         });
     }
 
-	[GtkCallback]
+	[GtkCallback (name="window_destroy_cb")]
     private void window_destroy_cb() {
 		Gtk.main_quit();
 	}
 
-	[GtkCallback]
+	[GtkCallback (name="action_file_set_cb")]
 	private void action_file_set_cb() {
 	    string? filename = content_file_chooser.get_filename();
 	    if (filename != null) {
@@ -59,17 +59,13 @@ public class UC.Window : Gtk.Window {
 	    }
 	}
 
-    [GtkCallback]
+    [GtkCallback (name="window_show_cb")]
 	private void window_show_cb() {
 	    Gtk.CssProvider css_provider = new Gtk.CssProvider();
 	    unowned Gdk.Screen? current_screen = Gdk.Screen.get_default();
 	    if (current_screen != null) {
-	        try {
-        	    css_provider.load_from_resource("/nl/hypothermic/ultimatecompressor/gui/window.css");
-                Gtk.StyleContext.add_provider_for_screen((Gdk.Screen) current_screen, css_provider, Gtk.STYLE_PROVIDER_PRIORITY_USER);
-            } catch (Error error) {
-                stderr.printf("A resource could not be loaded: %s\n", error.message);
-            }
+        	css_provider.load_from_resource("/nl/hypothermic/ultimatecompressor/gui/window.css");
+            Gtk.StyleContext.add_provider_for_screen((Gdk.Screen) current_screen, css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 	    }
 	}
 }
