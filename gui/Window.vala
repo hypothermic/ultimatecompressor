@@ -3,6 +3,9 @@ using GLib;
 using Gtk;
 using Gdk;
 
+/**
+ * The main window which shows an interactive file input list and buttons with compress/decompress.
+ */
 [GtkTemplate (ui = "/nl/hypothermic/ultimatecompressor/gui/window.ui")]
 public class UC.Window : Gtk.Window {
 
@@ -30,11 +33,16 @@ public class UC.Window : Gtk.Window {
     [GtkChild (name="content-action-decompress", internal="true")]
     private Gtk.Button content_action_decompress;
 
+    /**
+     * The list which contains all the rows shown in content_file_list.
+     */
     private UC.ArrayList<UC.FileListBoxRow> list_rows = new UC.ArrayList<UC.FileListBoxRow>();
 
     construct {
-        UC.FileListBoxRow row = new UC.FileListBoxRow("My Files");
-        content_file_list.insert(row, -1);
+        list_rows.added.connect((row) => {
+            content_file_list.insert(row, -1);
+            content_file_list.show_all();
+        });
     }
 
 	[GtkCallback]
@@ -46,7 +54,6 @@ public class UC.Window : Gtk.Window {
 	private void action_file_set_cb() {
         UC.FileListBoxRow row = new UC.FileListBoxRow(content_file_chooser.get_filename());
         list_rows.add(row);
-        content_file_list.insert(row, -1);
 	}
 
     [GtkCallback]

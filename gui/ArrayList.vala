@@ -7,6 +7,8 @@ using GLib;
  */
 public class UC.ArrayList<G> : GLib.Object {
 
+    public signal void added(G object);
+
     /**
      * Counts how many objects were added to the <i>array</i>.<br /><br />
      *
@@ -20,5 +22,6 @@ public class UC.ArrayList<G> : GLib.Object {
             array.resize(count);
         }
         array[count-1] = object;
+        added(object);
     }
 }
