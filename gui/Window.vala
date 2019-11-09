@@ -4,7 +4,8 @@ using Gtk;
 using Gdk;
 
 using UC;
-using UC.Arc;
+using UltimateCompressor;
+using UltimateCompressor.Archive;
 
 /**
  * The main window which shows an interactive file input list and buttons with compress/decompress.
@@ -42,7 +43,7 @@ public class UC.Window : Gtk.Window {
     private UC.ArrayList<UC.FileListBoxRow> list_rows = new UC.ArrayList<UC.FileListBoxRow>();
 
     static construct {
-        UC.Action.init();
+        UltimateCompressor.init();
     }
 
     construct {
@@ -87,7 +88,7 @@ public class UC.Window : Gtk.Window {
 	}
 
 	private void action_perform() {
-        stderr.printf("Performing %s, %d\n", UC.Action.COMPRESS.get_name(), UC.Arc.rar_is_supported() ? 1 : 69);
+        stderr.printf("Performing %s, %d\n", UC.Action.COMPRESS.get_name(), Archive.Format.ZIP.is_supported() ? 1 : 69);
 	}
 }
 

@@ -1,4 +1,5 @@
 using GLib;
+using UC;
 
 /*
  * Vala doesn't have macro's so we have to define each individual function for each archive format....
@@ -6,6 +7,9 @@ using GLib;
  * Fuck you Vala!
  */
 
+/**
+ * The namespace with API bindings for `uc_arc_*` methods and structures.
+ */
 namespace UltimateCompressor.Archive {
 
     public delegate bool Callback();
@@ -17,16 +21,24 @@ namespace UltimateCompressor.Archive {
         public static Format TAR = new Format(2, UC.Arc.tar_is_supported);
         public static Format ZIP = new Format(1, UC.Arc.zip_is_supported);
 
+        public static void init() {
+            new Archive.Format(-1, () => { return false; });
+        }
+
         /**
          * The position of this value in the `_uc_archive` enum
          */
-        private int index { get; set; }
-        private Callback supported_cb { get; set; }
+        private int index { public get; private set; }
+        private Callback supported_cb { private get; private set; }
 
         [CCode (construct_function = null)]
-        private Format(int index, Callback supported_cb) {
+        public Format(int index, Callback supported_cb) {
             this.index = index;
             this.supported_cb = supported_cb;
+        }
+
+        public bool is_supported() {
+            return supported_cb();
         }
     }
 
@@ -37,9 +49,9 @@ namespace UltimateCompressor.Archive {
  */
 namespace UC.Arc {
 
-	extern bool rar_is_supported();
-	extern bool s7z_is_supported();
-	extern bool tar_is_supported();
-	extern bool zip_is_supported();
+	private extern bool rar_is_supported();
+	private extern bool s7z_is_supported();
+	private extern bool tar_is_supported();
+	private extern bool zip_is_supported();
 
 }

@@ -15,11 +15,12 @@ vala_precompile(
     VALA_C
         Application.vala
         Action.vala
+        Archive.vala
         ArrayList.vala
         Callback.vala
         FileListBoxRow.vala
+        UltimateCompressor.vala
         Window.vala
-        Archive.vala
     PACKAGES
         gtk+-3.0
         posix
