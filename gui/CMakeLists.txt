@@ -12,8 +12,7 @@ glib_compile_resources(GLIB_RESOURCES_LIB
 )
 
 vala_precompile(
-    VALA_C
-        Application.vala
+    VALA_C VALA_PRECOMPILE_TARGET
         Action.vala
         Archive.vala
         ArrayList.vala
