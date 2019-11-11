@@ -63,11 +63,16 @@ namespace UltimateCompressor {
 #endif // UC_DEBUG_ENABLED
             }
 
+            public static Format? determine_from_file(File file) {
+                stderr.printf("TODO determine_from_file()");
+                return null;
+            }
+
             /**
              * The position of this value in the `_uc_archive` enum
              */
             private int                    index        { public get;  private set; }
-            private string                 name         { public get;  private set; }
+            public  string                 name         { public get;  private set; }
             private IsSupportedCallback    supported_cb { private get; private set; }
             private NewArchiveCallback     new_cb       { private get; private set; }
             private OpenArchiveCallback    open_cb      { private get; private set; }
@@ -90,7 +95,6 @@ namespace UltimateCompressor {
                 return supported_cb();
             }
         }
-
     }
 
     /**

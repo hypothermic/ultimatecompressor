@@ -1,1 +1,1 @@
-public delegate void UC.Callback<G>(G Object);
+public delegate void UC.Callback<G>(G object);

@@ -1,7 +1,9 @@
 using GLib;
 
 /**
- * An alternative ArrayList implementation, similar to Java.<br /> <br />
+ * An alternative ArrayList implementation, similar to Java.<br /><br />
+ *
+ * The difference between this and Gee's ArrayList is the signals and count of user actions.<br /><br />
  *
  * TODO implement List.
  */
@@ -10,7 +12,7 @@ public class UC.ArrayList<G> : GLib.Object {
     public signal void added(G object);
 
     /**
-     * Counts how many objects were added to the <i>array</i>.<br /><br />
+     * Counts how many objects were *added* to the <i>array</i>.<br /><br />
      *
      * This is not the same as array.length!
      */
@@ -38,5 +40,14 @@ public class UC.ArrayList<G> : GLib.Object {
         foreach (G element in array) {
             on_element(element);
         }
+    }
+
+    /**
+     * Returns the amount of elements which were *added to* the array.<br /><br />
+     *
+     * This may not be the same as the size of the underlying array!
+     */
+    public int size() {
+        return count;
     }
 }

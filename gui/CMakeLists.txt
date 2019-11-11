@@ -8,16 +8,24 @@ find_package(Vala REQUIRED)
 
 glib_compile_resources(GLIB_RESOURCES_LIB
     source
-        res.gresource.xml
+        window.gresource.xml
+)
+
+glib_compile_resources(RESOURCE_DIALOG_FORMAT
+    source
+        dialog_format.gresource.xml
 )
 
 vala_precompile(
     VALA_C VALA_PRECOMPILE_TARGET
+        AbstractDialog.vala
         Action.vala
         Archive.vala
         ArrayList.vala
         Callback.vala
+        DialogAction.vala
         FileListBoxRow.vala
+        FormatDialog.vala
         UltimateCompressor.vala
         Window.vala
     PACKAGES
@@ -26,7 +34,8 @@ vala_precompile(
     OPTIONS
         --thread
         --enable-experimental-non-null
-        --gresources=${CMAKE_CURRENT_SOURCE_DIR}/res.gresource.xml
+        --gresources=${CMAKE_CURRENT_SOURCE_DIR}/window.gresource.xml
+        --gresources=${CMAKE_CURRENT_SOURCE_DIR}/dialog_format.gresource.xml
 #    CUSTOM_VAPIS
 #        some_vapi.vapi
     GENERATE_VAPI
@@ -35,7 +44,7 @@ vala_precompile(
         ucgui
 )
 
-add_executable(ucgui main.c ${VALA_C} ${GLIB_RESOURCES_LIB})
+add_executable(ucgui main.c ${VALA_C} ${GLIB_RESOURCES_LIB} ${RESOURCE_DIALOG_FORMAT})
 target_link_libraries(ucgui uccore)
 
 # GNOME libraries

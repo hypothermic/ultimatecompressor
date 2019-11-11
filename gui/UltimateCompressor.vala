@@ -7,6 +7,7 @@ namespace UltimateCompressor {
     public void init() {
         Archive.Format.init();
         UC.Action.init();
+        UC.DialogAction.init();
     }
 
 // We would not want to generate the main method if we are calling it from another program.

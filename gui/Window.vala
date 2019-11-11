@@ -10,7 +10,7 @@ using UltimateCompressor.Archive;
 /**
  * The main window which shows an interactive file input list and buttons with compress/decompress.
  */
-[GtkTemplate (ui = "/nl/hypothermic/ultimatecompressor/gui/window.ui")]
+[GtkTemplate (ui = "/nl/hypothermic/ultimatecompressor/gui/window.glade")]
 public class UC.Window : Gtk.Window {
 
     [GtkChild (name="main-container", internal="true")]
@@ -18,6 +18,9 @@ public class UC.Window : Gtk.Window {
 
     [GtkChild (name="content-container", internal="true")]
     private Gtk.Box content_container;
+
+    [GtkChild (name="content-title-wrapper", internal="true")]
+    private Gtk.Box content_title_wrapper;
 
     [GtkChild (name="content-title", internal="true")]
     private Gtk.Label content_title;
@@ -41,6 +44,13 @@ public class UC.Window : Gtk.Window {
      * The list which contains all the rows shown in content_file_list.
      */
     private UC.ArrayList<UC.FileListBoxRow> list_rows = new UC.ArrayList<UC.FileListBoxRow>();
+
+    /**
+     * The path to the target output destination.
+
+     TODO UN-HARDCODE AFTER TESTING
+     */
+    private File? output_file = File.new_for_path("out.zip");
 
     static construct {
         UltimateCompressor.init();
@@ -79,16 +89,65 @@ public class UC.Window : Gtk.Window {
 
     [GtkCallback (name="action_compress_cb")]
 	private void action_compress_cb() {
-        action_perform();
+        action_perform(UC.Action.COMPRESS);
 	}
 
     [GtkCallback (name="action_decompress_cb")]
 	private void action_decompress_cb() {
-        action_perform();
+        action_perform(UC.Action.DECOMPRESS);
 	}
 
-	private void action_perform() {
-        stderr.printf("Performing %s, %d\n", UC.Action.COMPRESS.get_name(), Archive.Format.ZIP.is_supported() ? 1 : 69);
+	private void action_perform(UC.Action action) {
+	    // If no input file(s) are specified, do not proceed.
+        if (list_rows.size() < 1) {
+            // TODO display err in GUI
+            stderr.printf("No input files specified, not proceeding with %s!\n", action.get_name());
+            return;
+        }
+
+        // If output path is not specified, do not proceed.
+        if (output_file == null) {
+            // TODO display err in GUI
+            stderr.printf("No output path specified, not proceeding with %s!\n", action.get_name());
+            return;
+        }
+
+        stderr.printf("Performing %s, %d\n", action.get_name(), Archive.Format.ZIP.is_supported() ? 1 : 69);
+
+        // Try to determine format from destination file name or show dialog.
+        if (action.equals(UC.Action.COMPRESS)) {
+            Archive.Format? determined_format = Archive.Format.determine_from_file(((File) output_file));
+            if (determined_format == null) {
+                stderr.printf("No output format auto-determined for %s, querying user.\n", ((Archive.Format) determined_format).name);
+
+                new FormatDialog((archive, action) => {
+                    // Check if user cancelled the dialog.
+                    if (action.equals(UC.DialogAction.CANCEL)) {
+                        stderr.printf("Format query cancelled by user.\n");
+                        return;
+                    }
+                    determined_format = archive;
+
+                    // TODO do compress
+                }).show_all();
+
+                return;
+            } else {
+                stderr.printf("Output format automatically determined: %s\n", ((Archive.Format) determined_format).name);
+                // TODO do compress
+                return;
+            }
+        }
+
+        // Try to determine format from input file name or show dialog.
+        if (action.equals(UC.Action.DECOMPRESS) && list_rows.size() == 1) {
+            stderr.printf("TODO action.perform() decompress single\n"); // TODO
+        }
+
+        // Multiple input files!!! Try to determine or show dialog for each input file.
+        if (action.equals(UC.Action.DECOMPRESS) && list_rows.size() > 1) {
+            stderr.printf("TODO action.perform() decompress multiple\n"); // TODO
+        }
 	}
 }
 
