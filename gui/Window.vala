@@ -116,9 +116,9 @@ public class UC.Window : Gtk.Window {
 
         // Try to determine format from destination file name or show dialog.
         if (action.equals(UC.Action.COMPRESS)) {
-            Archive.Format? determined_format = Archive.Format.determine_from_file(((File) output_file));
+            Archive.Format? determined_format = Archive.Format.determine_from_file(((!) output_file));
             if (determined_format == null) {
-                stderr.printf("No output format auto-determined for %s, querying user.\n", ((Archive.Format) determined_format).name);
+                stderr.printf("No output format auto-determined for %s, querying user.\n", ((!) output_file).get_uri());
 
                 new FormatDialog((archive, action) => {
                     // Check if user cancelled the dialog.
